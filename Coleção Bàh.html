@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bàh Candles - Catálogo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f9f7f4; color: #333; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .fluid-blob {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.5);
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            background: #d18eb8;
+            filter: blur(80px);
+            opacity: 0.25;
+            z-index: 0;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background-color: white; }
+            section { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CAPA -->
+    <div id="coverPage" class="relative min-h-screen flex flex-col items-center justify-between py-24 px-8 overflow-hidden">
+        <div class="fluid-blob"></div>
+        
+        <div class="z-10 mt-12 text-center text-[#4a2c40]">
+            <h1 class="text-8xl font-serif tracking-tight mb-0">Bàh</h1>
+            <p class="text-[10px] uppercase tracking-[0.4em] font-light -mt-2 opacity-80">
+                Handcrafted Therapeutic Candles
+            </p>
+        </div>
+
+        <div class="z-10 flex flex-col items-center text-center space-y-6">
+            <div class="space-y-2">
+                <h2 class="text-4xl font-serif text-[#4a2c40]">Estados de Presença</h2>
+                <p class="text-sm italic font-light text-gray-500 max-w-xs mx-auto">
+                    Uma coleção aveludada e sofisticada para despertar estados internos através da perfumaria botânica.
+                </p>
+            </div>
+            
+            <button onclick="showCatalog()" class="no-print group flex items-center space-x-2 px-8 py-4 bg-[#4a2c40] text-white rounded-full transition-all hover:bg-[#5d3851] hover:scale-105 shadow-lg">
+                <span>Explorar Fórmulas</span>
+            </button>
+        </div>
+
+        <div class="z-10 text-[9px] uppercase tracking-widest text-gray-400">
+            Linha Bah Candles — 2024
+        </div>
+    </div>
+
+    <!-- CATÁLOGO -->
+    <div id="catalogPage" class="hidden max-w-4xl mx-auto py-12 px-6">
+        <header class="flex justify-between items-center mb-16 border-b border-gray-100 pb-8 no-print">
+            <div class="text-[#4a2c40]">
+                <h1 class="text-4xl font-serif">Bàh</h1>
+            </div>
+            <button onclick="showCover()" class="text-xs uppercase tracking-widest text-gray-400 hover:text-[#4a2c40] transition-colors">
+                ← Voltar à Capa
+            </button>
+        </header>
+
+        <div id="blendsContainer" class="space-y-24 mb-24">
+            <!-- Os blends serão inseridos aqui pelo JS -->
+        </div>
+
+        <footer class="mt-24 pt-12 border-t border-gray-100 flex flex-col md:flex-row justify-between items-start md:items-center text-gray-400 text-xs gap-6">
+            <div class="max-w-xs space-y-2">
+                <p class="font-bold text-[#4a2c40]">Leitura da Coleção</p>
+                <p>Perfumaria fina que atua emocionalmente sem agredir, criando estados internos claros.</p>
+            </div>
+            <div class="text-right">
+                <p>© 2024 Bàh Candles</p>
+                <p>Handcrafted Therapeutic Candles</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const blends = [
+            {
+                id: 1,
+                name: "Relaxamento | Controle da Ansiedade",
+                topo: "Tangerina", coracao: "Lavanda, Olíbano", base: "Vetiver",
+                estrutura: "Iso E Super — 25% | Óleos Essenciais — 75%",
+                detalhes: [
+                    { o: "Tangerina (20%)", d: "Alegria suave, conforto emocional, reduz tensão nervosa." },
+                    { o: "Lavanda (30%)", d: "Ansiolítica, sedativa leve, equilíbrio do sistema nervoso." },
+                    { o: "Olíbano (15%)", d: "Respiração profunda, tranquilidade mental, espiritualidade leve." },
+                    { o: "Vetiver (10%)", d: "Aterramento, segurança, estabilidade emocional." }
+                ],
+                acao: "Reduz ansiedade, desacelera pensamentos, cria sensação de acolhimento e silêncio interno."
+            },
+            {
+                id: 2,
+                name: "Respiração Plena",
+                topo: "Eucalipto, Alecrim", coracao: "Lavanda", base: "Cedro, Olíbano",
+                estrutura: "Iso E Super — 25% | Óleos Essenciais — 75%",
+                detalhes: [
+                    { o: "Eucalipto (15%)", d: "Expansão respiratória, limpeza energética." },
+                    { o: "Alecrim (10%)", d: "Clareza mental, oxigenação cerebral." },
+                    { o: "Lavanda (20%)", d: "Suaviza estímulo respiratório." },
+                    { o: "Cedro (15%)", d: "Estabilidade e segurança." },
+                    { o: "Olíbano (15%)", d: "Respiração consciente, profundidade." }
+                ],
+                acao: "Amplia respiração, limpa o ambiente e traz sensação de ar puro interno e externo."
+            },
+            {
+                id: 3,
+                name: "Foco | Clareza Mental",
+                topo: "Limão, Alecrim", coracao: "Spruce", base: "Cedro, Vetiver",
+                estrutura: "Iso E Super — 25% | Óleos Essenciais — 75%",
+                detalhes: [
+                    { o: "Limão (15%)", d: "Clareza, agilidade mental." },
+                    { o: "Alecrim (15%)", d: "Foco, memória, presença cognitiva." },
+                    { o: "Spruce (20%)", d: "Atenção sustentada, vigor mental." },
+                    { o: "Cedro (15%)", d: "Estrutura e concentração." },
+                    { o: "Vetiver (10%)", d: "Estabilidade mental." }
+                ],
+                acao: "Aumenta foco, organização mental e produtividade sem ansiedade."
+            },
+            {
+                id: 4,
+                name: "Meditação | Presença Profunda",
+                topo: "Olíbano, Laranja-doce", coracao: "Patchouli", base: "Vetiver",
+                estrutura: "Iso E Super — 20% | Óleos Essenciais — 80%",
+                detalhes: [
+                    { o: "Olíbano (30%)", d: "Espiritualidade, introspecção, respiração profunda." },
+                    { o: "Patchouli (25%)", d: "Aterramento emocional, segurança." },
+                    { o: "Laranja-doce (15%)", d: "Suaviza resinas, conforto." },
+                    { o: "Vetiver (10%)", d: "Enraizamento profundo." }
+                ],
+                acao: "Induz estado meditativo, presença, introspecção e desaceleração profunda."
+            },
+            {
+                id: 5,
+                name: "Maternar | Acolhimento",
+                topo: "Laranja-doce", coracao: "Lavanda", base: "Cedro, Olíbano",
+                estrutura: "Iso E Super — 25% | Óleos Essenciais — 75%",
+                detalhes: [
+                    { o: "Laranja-doce (30%)", d: "Conforto, vínculo emocional." },
+                    { o: "Lavanda (25%)", d: "Calmante suave e seguro." },
+                    { o: "Cedro (10%)", d: "Proteção emocional." },
+                    { o: "Olíbano (10%)", d: "Presença e respiração." }
+                ],
+                acao: "Acolhe, conforta, reduz insegurança emocional e promove sensação de cuidado."
+            },
+            {
+                id: 6,
+                name: "Prosperidade | Expansão",
+                topo: "Litsea Cubeba, Alecrim", coracao: "Laranja-doce", base: "Patchouli, Cedro",
+                estrutura: "Iso E Super — 25% | Óleos Essenciais — 75%",
+                detalhes: [
+                    { o: "Litsea Cubeba (15%)", d: "Movimento, leveza." },
+                    { o: "Alecrim (10%)", d: "Ação, clareza e iniciativa." },
+                    { o: "Laranja-doce (20%)", d: "Otimismo, abertura." },
+                    { o: "Patchouli (15%)", d: "Estabilidade material." },
+                    { o: "Cedro (15%)", d: "Estrutura e constância." }
+                ],
+                acao: "Estimula ação consciente, expansão, prosperidade equilibrada e foco em objetivos."
+            }
+        ];
+
+        function renderBlends() {
+            const container = document.getElementById('blendsContainer');
+            container.innerHTML = blends.map(b => `
+                <section class="flex flex-col md:flex-row gap-12">
+                    <div class="w-full md:w-1/3 space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-[#f0e6ed] flex items-center justify-center text-[#d18eb8] font-bold">
+                            ${b.id}
+                        </div>
+                        <h3 class="text-2xl font-serif text-[#4a2c40] leading-tight">${b.name}</h3>
+                        <div class="p-4 bg-white border border-[#f0e6ed] rounded-xl shadow-sm">
+                            <p class="text-[9px] uppercase tracking-widest text-gray-400 mb-1 font-bold">Ação Terapêutica</p>
+                            <p class="text-sm italic text-gray-600">"${b.acao}"</p>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-2/3 space-y-6">
+                        <div class="grid grid-cols-3 gap-4 border-b border-gray-100 pb-4">
+                            <div><span class="text-[9px] uppercase font-bold text-[#d18eb8]">Topo</span><p class="text-sm font-medium">${b.topo}</p></div>
+                            <div><span class="text-[9px] uppercase font-bold text-[#d18eb8]">Coração</span><p class="text-sm font-medium">${b.coracao}</p></div>
+                            <div><span class="text-[9px] uppercase font-bold text-[#d18eb8]">Base</span><p class="text-sm font-medium">${b.base}</p></div>
+                        </div>
+                        <div class="space-y-4">
+                            <p class="text-xs text-[#d18eb8] font-bold uppercase tracking-wider">${b.estrutura}</p>
+                            <div class="grid gap-4">
+                                ${b.detalhes.map(d => `
+                                    <div>
+                                        <p class="text-sm font-semibold text-[#4a2c40]">${d.o}</p>
+                                        <p class="text-xs text-gray-500">${d.d}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `).join('');
+        }
+
+        function showCatalog() {
+            document.getElementById('coverPage').classList.add('hidden');
+            document.getElementById('catalogPage').classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
+        function showCover() {
+            document.getElementById('catalogPage').classList.add('hidden');
+            document.getElementById('coverPage').classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
+        renderBlends();
+    </script>
+</body>
+</html>
