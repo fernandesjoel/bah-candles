@@ -1,1 +1,1 @@
-# bah-candles
+# Infinita-ia labs
